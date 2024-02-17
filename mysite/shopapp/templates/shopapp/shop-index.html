@@ -5,6 +5,17 @@ Shop Index
 {% block body %}
     <div><h1>Hellow world!!!</h1></div>
     <div>
+    {% if not  devices  %}
+    	There aren't devices here
+    {% else %}
+        <ul>
+        {% for name,price in devices %}
+            <li>
+        	{{ name }} for ${{ price }}
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
     {% lorem 4 p random %}
     </div>
 {% endblock %}
