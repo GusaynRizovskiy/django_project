@@ -9,6 +9,9 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     archived = models.BooleanField(default=0)
 
+    def __str__(self) -> str:
+        return f"Product(pk = {self.pk}, name = {self.name!r})"
+
 class Order(models.Model):
     delivery_address = models.TextField(null=True, blank=True)
     promocode = models.CharField(max_length=24,null=False,blank=True)
