@@ -13,6 +13,16 @@ class ProductAdmin(admin.ModelAdmin):
     list_display_links = "pk","name"
     ordering = 'pk', 'name'
     search_fields = 'name','description'
+    fieldsets = [
+        (None,{
+            'fields': ('name','description')
+        }),
+        ('Price options',{
+            'fields': ('price',"discount"),
+            'classes': ('collapse',"wide"),
+        }),
+
+    ]
     def description_short(self,obj: Product) -> str:
         if len(obj.description) < 48:
             return obj.description
