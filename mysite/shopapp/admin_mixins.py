@@ -14,6 +14,6 @@ class Export_AS_SCV_Mixin:
         csv_writer = csv.writer(response)
         csv_writer.writerow(field_names)
         for obj in query_set:
-            csv_writer.writerow(getattr(obj,field) for field in field_names)
+            csv_writer.writerow([getattr(obj,field) for field in field_names])
         return response
     export_as_csv.short_description = "Save as Csv file"
