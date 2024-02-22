@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.db.models import QuerySet
 from django.http import HttpRequest
-
+from .admin_mixins import Export_AS_SCV_Mixin
 from shopapp.models import Product, Order
 @admin.action(description='Archived products')
 def mark_archived(modeladmin: admin.ModelAdmin,request: HttpRequest,queryset:QuerySet):
@@ -13,10 +13,11 @@ def mark_unarchived(modeladmin: admin.ModelAdmin,request: HttpRequest,queryset:Q
 class ProductInline(admin.TabularInline):
     model = Product.orders.through
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(admin.ModelAdmin,Export_AS_SCV_Mixin):
     actions = [
         mark_archived,
         mark_unarchived,
+        "export_as_csv"
     ]
     inlines = [
         ProductInline,
