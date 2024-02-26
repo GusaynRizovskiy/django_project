@@ -13,6 +13,7 @@
     <option name="TEMPLATE_FOLDERS">
       <list>
         <option value="$MODULE_DIR$/mysite/shopapp/templates" />
+        <option value="$MODULE_DIR$/mysite/request_app_data/templates" />
       </list>
     </option>
   </component>

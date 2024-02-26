@@ -1,0 +1,14 @@
+{% extends 'request_app_data/base.html' %}
+{% block title %}
+	RequestQueryParams
+{% endblock %}
+{% block body %}
+	<h2> Good afternoon {% firstof request.GET.name  'User'%}!</h2>
+    <div>
+    <pre>
+        a = '{{ a }}'
+        b = '{{ b }}'
+        result = '{{ result }}'
+    </pre>
+    </div>
+{% endblock %}
