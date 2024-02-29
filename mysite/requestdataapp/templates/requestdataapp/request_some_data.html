@@ -1,0 +1,11 @@
+{% extends 'requestdataapp/base.html' %}
+{% block title %}
+	Some data
+{% endblock %}
+{% block body %}
+	<div>
+    <p>a =  {{request.GET.a}}</p>
+    <p>b = {{request.GET.b }}</p>
+    <p>result =  {{result }}</p>
+    </div>
+{% endblock %}
