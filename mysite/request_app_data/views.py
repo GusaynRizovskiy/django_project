@@ -1,7 +1,7 @@
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpRequest,HttpResponse
 from django.shortcuts import render
-
+from .forms import UserBioForm
 # Create your views here.
 def process_get_view(request: HttpRequest) -> HttpResponse:
     a = request.GET.get('a',"")
@@ -14,7 +14,10 @@ def process_get_view(request: HttpRequest) -> HttpResponse:
     }
     return render(request,'request_app_data/request-query-params.html', context)
 def user_form(request: HttpRequest)->HttpResponse:
-    return render(request,'request_app_data/request-bio-form.html')
+    context = {
+        'form': UserBioForm()
+    }
+    return render(request,'request_app_data/request-bio-form.html',context = context)
 def handle_file_upload_with_size(request: HttpRequest)->HttpResponse:
     if request.method == "FILES" and request.POST.get("myfile"):
         myfile = request.FILES["myfile"]
