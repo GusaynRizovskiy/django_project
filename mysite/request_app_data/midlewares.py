@@ -14,7 +14,6 @@ def middleware(get_response):
         return response
     return middleware
 
-
 # class CountRequestMiddleware:
 #     def __init__(self,get_response)->None:
 #         self.get_response = get_response
