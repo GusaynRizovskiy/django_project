@@ -3,7 +3,6 @@
     Products-list
 {% endblock %}
 {% block body %}
-	<div>
     <h3>Products:</h3>
     {% if products %}
     	<div>
@@ -18,6 +17,10 @@
     {% else %}
         No products here
     {% endif %}
+
+    <div>
+    <a href='{% url 'shopapp:product_create' %}'
+       >Create a new product</a>
     </div>
     <div>
     <a href="{% url 'shopapp:product_create' %}"

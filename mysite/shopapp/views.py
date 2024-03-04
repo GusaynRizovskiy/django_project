@@ -38,6 +38,7 @@ def create_product(request: HttpRequest)->HttpResponse:
         if form.is_valid():
             # Product.objects.create(**form.cleaned_data)
             form.save()
+
             url = reverse("shopapp:products_list")
             return redirect(url)
     else:
@@ -60,3 +61,4 @@ def create_order(request: HttpRequest)->HttpResponse:
         "form": form
     }
     return render(request,"shopapp/create-order.html",context=context)
+
