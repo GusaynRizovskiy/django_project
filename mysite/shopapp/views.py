@@ -3,7 +3,7 @@ from django.http import HttpRequest,HttpResponse
 from django.shortcuts import render
 from timeit import default_timer
 from shopapp.models import Product, Order
-
+from .forms import ProductForm
 
 def shop_index(request: HttpRequest):
     devices = [
@@ -31,3 +31,10 @@ def orders(request: HttpRequest):
         "orders": Order.objects.select_related('user').prefetch_related("products").all()
     }
     return render(request,'shopapp/orders-list.html',context = context)
+
+def create_product(request: HttpRequest)->HttpResponse:
+    form = ProductForm()
+    context = {
+        "form": form
+    }
+    return render(request,'shopapp/create-product.html',context=context)
