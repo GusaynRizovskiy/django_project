@@ -23,4 +23,8 @@
         <h3>No orders yet</h3>
     {% endif %}
     </div>
+    <div>
+    <a href="{% url 'shopapp:order_create' %}"
+       >Create order</a>
+    </div>
 {% endblock %}
