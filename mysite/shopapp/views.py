@@ -37,18 +37,24 @@ class ProductListView(ListView):
     template_name = "shopapp/products-list.html"
     model = Product
     context_object_name = "products"
-class ProductDetailsView(View):
-    def get(self,request:HttpRequest,pk:int)->HttpResponse:
-        product = get_object_or_404(Product,pk=pk)
-        context = {
-            "product":product
-        }
-        return render(request,"shopapp/products-details.html",context=context)
-def orders(request: HttpRequest):
-    context = {
-        "orders": Order.objects.select_related('user').prefetch_related("products").all()
-    }
-    return render(request,'shopapp/orders-list.html',context = context)
+class ProductDetailsView(DetailView):
+    template_name = "shopapp/products-details.html"
+    model = Product
+    context_object_name = "product"
+
+class OrdersListView(ListView):
+    queryset = (
+        Order.objects
+        .select_related('user')
+        .prefetch_related("products")
+    )
+    context_object_name = "orders"
+class OrderDetailsView(DetailView):
+    queryset = (
+        Order.objects
+        .select_related('user')
+        .prefetch_related("products")
+    )
 def create_product(request:HttpRequest)->HttpResponse:
     if request.method == "POST":
         form = ProductForm(request.POST)
