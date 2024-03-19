@@ -11,3 +11,5 @@ class OrderForm(forms.ModelForm):
         model = Order
         fields = "delivery_address","promocode","user","products"
 
+#Пробуем попытку подключения к гитхаб через сампо и прокси
+
