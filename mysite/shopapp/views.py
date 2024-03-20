@@ -62,3 +62,5 @@ def create_order(request: HttpRequest)->HttpResponse:
     }
     return render(request,"shopapp/create-order.html",context=context)
 
+#попытка подключения
+
