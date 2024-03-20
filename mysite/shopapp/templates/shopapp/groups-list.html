@@ -4,6 +4,13 @@ GroupsList
 {% endblock %}
 {% block body %}
     <div>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Create group</button>
+        </form>
+    </div>
         <h1>Groups:</h1>
         {% if not groups %}
             There aren't groups here
