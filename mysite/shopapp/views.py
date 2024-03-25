@@ -52,6 +52,9 @@ class ProductsUpdateView(UpdateView):
     model = Product
     fields = "name","description","price","discount"
     template_name_suffix = "_update_form"
+class ProductDeleteView(DeleteView):
+    model = Product
+    success_url = reverse_lazy("shoapp:products_list")
 
 def orders(request: HttpRequest):
     context = {

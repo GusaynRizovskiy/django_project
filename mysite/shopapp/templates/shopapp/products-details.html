@@ -11,7 +11,11 @@
     <div>Product discount: {{ product.discount }}</div>
     </div>
     <div>
-    <a href="{% url 'shopapp:products_list' %}"
+    <a href="{% url 'shopapp:products_list' pk = product.pk%}"
     >Back to products list</a>
+    </div>
+    <div>
+    <a href="{% url 'shopapp:product_confirm_delete' pk = product.pk %}"
+    >Delete product</a>
     </div>
 {% endblock %}

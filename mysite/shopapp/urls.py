@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ShopIndexView,GroupsView,ProductsView,orders,ProductsCreateView,ProductsDetailsView,ProductsUpdateView
+from .views import ShopIndexView,ProductDeleteView,GroupsView,ProductsView,orders,ProductsCreateView,ProductsDetailsView,ProductsUpdateView
 
 urlpatterns = [
     path('', ShopIndexView.as_view(),name = 'shop_index'),
@@ -8,6 +8,7 @@ urlpatterns = [
     path('products/<int:pk>/',ProductsDetailsView.as_view(),name = 'products_details'),
     path('orders/', orders, name = 'orders_list'),
     path('products/create/',ProductsCreateView.as_view(),name = "product_create"),
-    path('products/update/', ProductsUpdateView.as_view(), name="product_create"),
+    path('products/<int:pk>/update/', ProductsUpdateView.as_view(), name="product_create"),
+    path('products/<int:pk>/confirm-delete/', ProductDeleteView.as_view(), name="product_confirm_delete"),
 ]
 app_name = 'shopapp'
