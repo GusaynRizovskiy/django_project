@@ -8,7 +8,7 @@ from django.views import View
 from django.views.generic import TemplateView,ListView,DetailView,CreateView,DeleteView,UpdateView
 
 from shopapp.models import Product, Order
-from .forms import ProductForm, GroupForm
+from .forms import GroupForm
 
 class ShopIndexView(View):
     def get(self,request:HttpRequest)->HttpResponse:

@@ -1,21 +1,14 @@
 {% extends 'shopapp/base.html' %}
 {% block title %}
-	Product # {{ product.pk }}
+	Product details of {{ product.pk }}
 {% endblock %}
 {% block body %}
 	<div>
-    <h1>Details of product # {{ product.pk }}</h1>
+    Product details of {{ product.pk }}
     <div>Product name: {{ product.name }}</div>
     <div>Product description: {{ product.description }}</div>
-    <div>Product price: {{ product.price }}</div>
+    <div>Product price: {{product.price }}</div>
     <div>Product discount: {{ product.discount }}</div>
     </div>
-    <div>
-    <a href="{% url 'shopapp:products_list' pk = product.pk%}"
-    >Back to products list</a>
-    </div>
-    <div>
-    <a href="{% url 'shopapp:product_confirm_delete' pk = product.pk %}"
-    >Delete product</a>
-    </div>
+    <a href="{% url 'shopapp:products_list' %}">Back to product list</a>
 {% endblock %}
