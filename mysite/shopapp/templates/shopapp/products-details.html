@@ -1,0 +1,14 @@
+{% extends 'shopapp/base.html' %}
+{% block title %}
+	Product details of {{ product.pk }}
+{% endblock %}
+{% block body %}
+	<div>
+    Product details of {{ product.pk }}
+    <div>Product name: {{ product.name }}</div>
+    <div>Product description: {{ product.description }}</div>
+    <div>Product price: {{product.price }}</div>
+    <div>Product discount: {{ product.discount }}</div>
+    </div>
+    <a href="{% url 'shopapp:products_list' %}">Back to product list</a>
+{% endblock %}
