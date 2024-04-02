@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate,login
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 
 #
@@ -16,3 +16,11 @@ from django.shortcuts import render, redirect
 #         return redirect("/admin/")
 #     return render(request,"myauth/login.html", {"error":"Invalid username or password"})
 # # Create your views here.
+
+def get_coockie(request:HttpRequest):
+    value = request.COOKIES.get("fizz","default_name")
+    return HttpResponse(f"Coockie value: {value}")
+def set_coockie(request:HttpRequest):
+    response = HttpResponse("Set Coockie")
+    response.set_cookie("fizz","buzz")
+    return response
