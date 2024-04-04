@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 from string import ascii_letters
@@ -35,3 +36,29 @@ class ProductDetailsViewTestCase(TestCase):
             reverse('shopapp:products_details',kwargs={"pk":self.product.pk})
         )
         self.assertEqual(response.status_code,200)
+
+class ListViewTestCase(TestCase):
+    fixtures = [
+        'shoapp-fixtures.json'
+    ]
+    def test_list_view(self):
+        response = self.client.get(reverse('shopapp:products_list'))
+        self.assertQuerySetEqual(
+            qs=Product.objects.filter(archived=False).all(),
+            values = [product.pk for product in response.context['products']],
+            transform= lambda p: p.pk
+        )
+
+class OrderListViewTestCase(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.user = User.objects.create_user(username="Bob",password="qwerty")
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.user.delete()
+    def setUp(self):
+        self.client.force_login(self.user)
+    def test_order_list(self):
+        response = self.client.get(reverse('shopapp:order_list'))
+        self.assertContains(response,"Order")
