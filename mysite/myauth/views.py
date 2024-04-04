@@ -1,6 +1,8 @@
 from django.contrib.auth import authenticate,login
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
+from django.views.generic import View
+
 
 #
 # def LoginView(request:HttpRequest):
@@ -16,3 +18,15 @@ from django.shortcuts import render, redirect
 #         return redirect("/admin/")
 #     return render(request,"myauth/login.html", {"error":"Invalid username or password"})
 # # Create your views here.
+
+def get_coockie(request:HttpRequest)->HttpResponse:
+    value = request.COOKIES.get("foobar","default_value")
+    return HttpResponse(f"Coockie get: {value}")
+def set_coockie(request:HttpRequest)->HttpResponse:
+    response = HttpResponse("Coockie set")
+    response.set_cookie("foobar","bananas",max_age=3600)
+    return response
+
+class FooBarView(View):
+    def get(self,request:HttpRequest):
+        return JsonResponse({"foobar": "bananos","looka":"potatos"})
