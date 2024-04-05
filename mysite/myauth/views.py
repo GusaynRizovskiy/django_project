@@ -19,8 +19,9 @@ from django.views.generic import View
 #     return render(request,"myauth/login.html", {"error":"Invalid username or password"})
 # # Create your views here.
 
+
 def get_coockie(request:HttpRequest)->HttpResponse:
-    value = request.COOKIES.get("foobar","default_value")
+    value = request.COOKIES.get("foobar")
     return HttpResponse(f"Coockie get: {value}")
 def set_coockie(request:HttpRequest)->HttpResponse:
     response = HttpResponse("Coockie set")
@@ -29,4 +30,4 @@ def set_coockie(request:HttpRequest)->HttpResponse:
 
 class FooBarView(View):
     def get(self,request:HttpRequest):
-        return JsonResponse({"foobar": "bananos","looka":"potatos"})
+        return JsonResponse({"fruit":"apple","orange":"bananas"})
