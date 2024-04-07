@@ -1,7 +1,28 @@
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import LogoutView
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
-from django.views.generic import View
+from django.urls import reverse, reverse_lazy
+from django.views.generic import View,CreateView,TemplateView
+
+class AboutMe(TemplateView):
+    template_name = 'myauth/about-me.html'
+
+class RegisterView(CreateView):
+    form_class = UserCreationForm
+    template_name = "myauth/register.html"
+    success_url = reverse_lazy("myauth:about-me")
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        username = form.cleaned_data.get("username")
+        password = form.cleaned_data.get("password1")
+        user = authenticate(
+            self.request,
+            username=username,
+            password=password)
+        login(request = self.request,user = user)
+        return response
 
 
 #
@@ -18,8 +39,11 @@ from django.views.generic import View
 #         return redirect("/admin/")
 #     return render(request,"myauth/login.html", {"error":"Invalid username or password"})
 # # Create your views here.
-
-
+# class MyLogoutView(LogoutView):
+#     next_page = reverse_lazy("myauth:login")
+def logout_view(request):
+    logout(request)
+    return redirect(reverse('myauth:login'))
 def get_coockie(request:HttpRequest)->HttpResponse:
     value = request.COOKIES.get("foobar")
     return HttpResponse(f"Coockie get: {value}")
