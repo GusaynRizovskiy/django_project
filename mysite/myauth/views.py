@@ -6,6 +6,9 @@ from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import View,CreateView,TemplateView
 
+from myauth.models import Profile
+
+
 class AboutMe(TemplateView):
     template_name = 'myauth/about-me.html'
 
@@ -15,6 +18,7 @@ class RegisterView(CreateView):
     success_url = reverse_lazy("myauth:about-me")
     def form_valid(self, form):
         response = super().form_valid(form)
+        Profile.objects.create(user = self.object)
         username = form.cleaned_data.get("username")
         password = form.cleaned_data.get("password1")
         user = authenticate(
