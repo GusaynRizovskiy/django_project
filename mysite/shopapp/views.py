@@ -40,7 +40,7 @@ class ProductsView(ListView):
     context_object_name = "products"
 class ProductsDetailsView(DetailView):
     template_name = 'shopapp/products-details.html'
-    model = Product
+    queryset = Product.objects.prefetch_related("images")
     context_object_name = "product"
 
 class ProductsCreateView(CreateView):

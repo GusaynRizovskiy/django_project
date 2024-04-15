@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.db.models import QuerySet
 from django.http import HttpRequest
 from .admin_mixins import Export_AS_SCV_Mixin
-from shopapp.models import Product, Order
+from shopapp.models import Product, Order, ProductImage
 @admin.action(description='Archived products')
 def mark_archived(modeladmin: admin.ModelAdmin,request: HttpRequest,queryset:QuerySet):
     queryset.update(archived=True)
@@ -11,7 +11,7 @@ def mark_unarchived(modeladmin: admin.ModelAdmin,request: HttpRequest,queryset:Q
     queryset.update(archived=False)
 
 class ProductInline(admin.TabularInline):
-    model = Product.orders.through
+    model = ProductImage
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin,Export_AS_SCV_Mixin):
     actions = [
@@ -37,7 +37,10 @@ class ProductAdmin(admin.ModelAdmin,Export_AS_SCV_Mixin):
         ("Extra options", {
             'fields': ('archived',),
             'description': ("You can archived this product or don't do this"),
-        })
+        }),
+        ("Images", {
+            'fields': ('preview', ),
+        }),
     ]
     def short_description(self,obj:Product):
         if len(obj.description < 48):
