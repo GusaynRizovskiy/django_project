@@ -45,12 +45,12 @@ class ProductsDetailsView(DetailView):
 
 class ProductsCreateView(CreateView):
     model = Product
-    fields = "name","description","price","discount"
+    fields = "name","description","price","discount","preview"
     success_url = reverse_lazy("shopapp:products_list")
 
 class ProductsUpdateView(UpdateView):
     model = Product
-    fields = "name","description","price","discount"
+    fields = "name","description","price","discount","preview"
     template_name_suffix = "_update_form"
 class ProductDeleteView(DeleteView):
     model = Product

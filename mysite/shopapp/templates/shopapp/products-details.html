@@ -9,6 +9,9 @@
     <div>Product description: {{ product.description }}</div>
     <div>Product price: {{product.price }}</div>
     <div>Product discount: {{ product.discount }}</div>
+    {% if product.preview %}
+        <img src={{ product.preview.url }} alt={{ product.preview.name }}>
+    {% endif %}
     </div>
     <a href="{% url 'shopapp:products_list' %}">Back to product list</a>
 {% endblock %}
