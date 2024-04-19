@@ -31,3 +31,5 @@ if settings.DEBUG:
     urlpatterns.extend(
         static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     )
+
+'проверка работы'
