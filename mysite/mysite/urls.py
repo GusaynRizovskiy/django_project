@@ -36,3 +36,4 @@ if settings.DEBUG:
 'вторая проверка'
 
 'new work'
+'new message'
