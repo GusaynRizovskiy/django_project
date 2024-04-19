@@ -37,3 +37,5 @@ if settings.DEBUG:
 
 'new work'
 'new message'
+
+'еще раз'
