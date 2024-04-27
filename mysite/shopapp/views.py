@@ -10,6 +10,11 @@ from django.views.generic import TemplateView,ListView,DetailView,CreateView,Del
 from shopapp.models import Product, Order
 from .forms import GroupForm
 
+from rest_framework.viewsets import ModelViewSet
+from shopapp.serializers import ProductSerializer
+class ProductViewSet(ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 class ShopIndexView(View):
     def get(self,request:HttpRequest)->HttpResponse:
         devices = [
