@@ -10,11 +10,32 @@ from django.views.generic import TemplateView,ListView,DetailView,CreateView,Del
 from shopapp.models import Product, Order
 from .forms import GroupForm
 
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.viewsets import ModelViewSet
 from shopapp.serializers import ProductSerializer
+from django_filters.rest_framework import DjangoFilterBackend
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    filter_backends = [
+        SearchFilter,
+        DjangoFilterBackend,
+        OrderingFilter
+    ]
+    search_fields =['name','description']
+    filterset_fields = [
+        'name',
+        'description',
+        'price',
+        'discount',
+        'archived'
+    ]
+    ordering_fields = [
+        'name',
+        'price',
+        'discount',
+    ]
+
 class ShopIndexView(View):
     def get(self,request:HttpRequest)->HttpResponse:
         devices = [
