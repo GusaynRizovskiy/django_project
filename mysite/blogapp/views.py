@@ -7,4 +7,5 @@ from .models import Article
 
 class ArticleListView(ListView):
     model = Article
-    template_name = ''
+    template_name = 'article_list.html'
+    context_object_name = 'article'
