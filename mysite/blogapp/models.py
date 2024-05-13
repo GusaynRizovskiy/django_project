@@ -16,4 +16,4 @@ class Article(models.Model):
     pub_date = models.DateTimeField()
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
-    tags = models.ManyToManyField(Teg)
+    tegs = models.ManyToManyField(Teg)
