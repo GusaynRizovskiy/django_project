@@ -24,6 +24,7 @@ urlpatterns = [
     path('req/',include('request_app_data.urls')),
     path('myauth/',include('myauth.urls')),
     path('api/',include('myapiapp.urls')),
+    path('blogapp/',include('blogapp.urls')),
 ]
 if settings.DEBUG:
     urlpatterns.extend(
