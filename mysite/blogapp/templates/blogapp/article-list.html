@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Articles</title>
+</head>
+<body>
+<h1>Atricles:</h1>
+<div>
+    {% if articles %}
+        {% for article in articles %}
+            <div>
+                <p><h2>Header of article: {{ article.title }}</h2></p>
+                <p>Publication date of article: {{ article.pub_date }}</p>
+                <p>Author of article: {{ article.author.name }}</p>
+                <p>Category of article: {{ article.category.name }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+</body>
+</html>
