@@ -2,6 +2,7 @@ from django.contrib.auth.models import Group
 from django.http import HttpRequest,HttpResponse
 from django.shortcuts import render,redirect,reverse
 from timeit import default_timer
+import logging
 
 from django.urls import reverse_lazy
 from django.views import View
@@ -14,6 +15,8 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.viewsets import ModelViewSet
 from shopapp.serializers import ProductSerializer
 from django_filters.rest_framework import DjangoFilterBackend
+
+log = logging.getLogger(__name__)
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
@@ -46,6 +49,8 @@ class ShopIndexView(View):
         context = {
             "devices": devices
         }
+        log.debug("Products for shop index: %s", devices)
+        log.info("Rendering shop index")
         return render(request,'shopapp/shop-index.html',context = context)
 # Create your views here.
 class GroupsView(View):
