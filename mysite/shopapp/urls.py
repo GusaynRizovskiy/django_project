@@ -1,5 +1,6 @@
 from django.urls import path,include
 from rest_framework.routers import DefaultRouter
+from django.views.decorators.cache import cache_page
 from .views import (
     ShopIndexView,
     ProductDeleteView,
@@ -15,7 +16,7 @@ routers = DefaultRouter()
 routers.register("products",ProductViewSet)
 app_name = 'shopapp'
 urlpatterns = [
-    path('', ShopIndexView.as_view(),name = 'shop_index'),
+    path('', cache_page(60*3)(ShopIndexView.as_view()),name = 'shop_index'),
     path('api/',include(routers.urls)),
     path('groups/',GroupsView.as_view(),name = 'groups_list'),
     path('products/',ProductsView.as_view(),name = 'products_list'),

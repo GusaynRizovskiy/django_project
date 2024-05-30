@@ -4,6 +4,8 @@ from django.shortcuts import render,redirect,reverse
 from timeit import default_timer
 from csv import DictWriter
 import logging
+
+from django.views.decorators.cache import cache_page
 from rest_framework.decorators import action
 from django.urls import reverse_lazy
 from django.views import View
@@ -15,6 +17,7 @@ from rest_framework.response import Response
 from shopapp.models import Product, Order
 from .forms import GroupForm
 
+from django.utils.decorators import method_decorator
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.viewsets import ModelViewSet
 from shopapp.serializers import ProductSerializer
@@ -42,6 +45,10 @@ class ProductViewSet(ModelViewSet):
         'price',
         'discount',
     ]
+    @method_decorator(cache_page(60*2))
+    def list(self, request, *args, **kwargs):
+        print("hellow product list")
+        return super().list(*args,**kwargs)
     @action(methods=['get'],detail=False)
     def download_csv(self,request: Request):
         response = HttpResponse(content_type='text/csv')
@@ -89,6 +96,7 @@ class ShopIndexView(View):
         }
         log.debug("Products for shop index: %s", devices)
         log.info("Rendering shop index")
+        print("shop index context", context)
         return render(request,'shopapp/shop-index.html',context = context)
 
 # Create your views here.

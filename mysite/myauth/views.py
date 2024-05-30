@@ -5,9 +5,9 @@ from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import View,CreateView,TemplateView
-
+from random import random
 from myauth.models import Profile
-
+from django.views.decorators.cache import cache_page
 
 class AboutMe(TemplateView):
     template_name = 'myauth/about-me.html'
@@ -48,9 +48,10 @@ class RegisterView(CreateView):
 def logout_view(request):
     logout(request)
     return redirect(reverse('myauth:login'))
+@cache_page(timeout=60*2)
 def get_coockie(request:HttpRequest)->HttpResponse:
     value = request.COOKIES.get("foobar")
-    return HttpResponse(f"Coockie get: {value}")
+    return HttpResponse(f"Coockie get: {value} + {random()}")
 def set_coockie(request:HttpRequest)->HttpResponse:
     response = HttpResponse("Coockie set")
     response.set_cookie("foobar","bananas",max_age=3600)
