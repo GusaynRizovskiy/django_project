@@ -139,3 +139,4 @@ def orders(request: HttpRequest):
         "orders": Order.objects.select_related('user').prefetch_related("products").all()
     }
     return render(request,'shopapp/orders-list.html',context = context)
+#how it works?
