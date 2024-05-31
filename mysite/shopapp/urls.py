@@ -16,7 +16,7 @@ routers = DefaultRouter()
 routers.register("products",ProductViewSet)
 app_name = 'shopapp'
 urlpatterns = [
-    path('', cache_page(60*3)(ShopIndexView.as_view()),name = 'shop_index'),
+    path('', ShopIndexView.as_view(),name = 'shop_index'),
     path('api/',include(routers.urls)),
     path('groups/',GroupsView.as_view(),name = 'groups_list'),
     path('products/',ProductsView.as_view(),name = 'products_list'),

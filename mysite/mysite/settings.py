@@ -100,8 +100,9 @@ DATABASES = {
 
 CASHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
-        "LOCATION": "/var/tmp/django_cash/",
+        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+        # "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+        # "LOCATION": "/var/tmp/django_cash/",
     },
 }
 CACHES_MIDDLEWARE_SECONDS = 200
