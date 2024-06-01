@@ -1,15 +1,22 @@
 {% extends 'myauth/base.html' %}
+{% load cache %}
 {% block title %}
 	About Me
 {% endblock %}
 {% block body %}
+    <h1>User info</h1>
+    <div>
+    Products available: {% now "u" %}
+    </div>
     {% if user.is_authenticated %}
-        <h2>Detail</h2>
-        <p>Username: {{ user.username }}</p>
-        <p>Fist name: {{ user.first_name }}</p>
-        <p>Last name: {{ user.last_name }}</p>
-        <p>Email: {{ user.email }}</p>
-        <p>Bio: {{ user.profile.Bio }}</p>
+        {% cache 300 userinfo user.username %}
+            <h2>Detail</h2>
+            <p>Username: {{ user.username }}</p>
+            <p>Fist name: {{ user.first_name }}</p>
+            <p>Last name: {{ user.last_name }}</p>
+            <p>Email: {{ user.email }}</p>
+            <p>Bio: {{ user.profile.Bio }}</p>
+        {% endcache %}
     {% else %}
         <h2>User is anonymus</h2>
     {% endif %}

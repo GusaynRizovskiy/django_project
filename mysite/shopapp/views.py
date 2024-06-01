@@ -1,5 +1,5 @@
 from django.contrib.auth.models import Group
-from django.http import HttpRequest,HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import render,redirect,reverse
 from timeit import default_timer
 from csv import DictWriter
@@ -23,6 +23,7 @@ from rest_framework.viewsets import ModelViewSet
 from shopapp.serializers import ProductSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from shopapp.common import save_csv_products
+from django.core.cache import cache
 log = logging.getLogger(__name__)
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
@@ -139,3 +140,34 @@ def orders(request: HttpRequest):
         "orders": Order.objects.select_related('user').prefetch_related("products").all()
     }
     return render(request,'shopapp/orders-list.html',context = context)
+#how it works?
+
+class ProductsDataExportView(View):
+    def get(self,request:HttpRequest)-> JsonResponse:
+        cache_key = "products_data_export"
+        products_date = cache.get(cache_key)
+        if products_date is None:
+            products = Product.objects.order_by('pk').all()
+            products_data = [
+                {
+                    "pk": product.pk,
+                    "name": product.name,
+                    "price": product.price,
+                    "archived": product.archived
+                }
+                for product in products
+            ]
+            cache.set(cache_key,products_data,300)
+        return JsonResponse({"products": products_data})
+
+
+
+
+
+
+
+
+
+
+
+
